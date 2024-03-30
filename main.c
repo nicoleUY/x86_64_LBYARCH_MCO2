@@ -37,9 +37,16 @@ int main() {
 void c_dot_product() {
 	int i, n;
 	char dump;
-	float A[20]; //i put 10 for now, dont remember how to declare if dk the thing yet
-	float B[20];
+	//float A[20]; //i put 10 for now, dont remember how to declare if dk the thing yet
+	//float B[20];
 	float temp, sum=0;
+	float* a = malloc(10 * sizeof(float));
+	float* b = malloc(10 * sizeof(float));
+
+	if (a == NULL || b == NULL) {
+		printf("error! malloc didnt work");
+		return;
+	}
 
 	printf("THIS IS FOR CALCULATING USING C\n");
 
@@ -47,27 +54,40 @@ void c_dot_product() {
 	printf("Enter scalar variable n: ");
 	scanf_s("%d", &n);
 
+	a = realloc(a, n * sizeof(float));
+	b = realloc(b, n * sizeof(float));
+
+	if (a == NULL || b == NULL) {
+		printf("error! realloc didnt work");
+		return;
+	}
+
 	printf("Enter values of vector A (single precision): ");
 	for (i = 0; i < n; i++) {
-		scanf_s("%f", &A[i]);
+		//scanf_s("%f", &A[i]);
+		scanf_s("%f", &a[i]);
 		scanf_s("%c", &dump, 1);
 	}
 	printf("Enter values of vector B (single precision): ");
 	for (i = 0; i < n; i++) {
-		scanf_s("%f", &B[i]);
+		//scanf_s("%f", &B[i]);
+		scanf_s("%f", &b[i]);
 		scanf_s("%c", &dump, 1);
 	}
 	printf("These are the values for A: \n");
 	for (i = 0; i < n; i++) {
-		printf("%.2f \n", A[i]);
+		//printf("%.2f \n", A[i]);
+		printf("%.2f \n", a[i]);
 	}
 	printf("These are the values for B: \n");
 	for (i = 0; i < n; i++) {
-		printf("%.2f \n", B[i]);
+		//printf("%.2f \n", B[i]);
+		printf("%.2f \n", b[i]);
 	}
 
 	for (i = 0; i < n; i++) {
-		temp = A[i] * B[i];
+		//temp = A[i] * B[i];
+		temp = a[i] * b[i];
 		sum += temp;
 		printf("%d: %.2f  ", i, temp);
 	}
