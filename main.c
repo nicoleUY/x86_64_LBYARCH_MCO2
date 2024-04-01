@@ -37,9 +37,10 @@ int main() {
         fclose(file);
         return -1;
     }
+
     // Read floating-point numbers from file
     for (size_t i = 0; i < n; i++) {
-        if (fscanf_s(file, "%f", &a[i], sizeof(float)) != 1) {
+        if (fscanf_s(file, "%f", &a[i]) != 1) {
             perror("Error reading floating-point number for array a");
             fclose(file);
             free(a);
@@ -48,7 +49,7 @@ int main() {
         }
     }
     for (size_t i = 0; i < n; i++) {
-        if (fscanf_s(file, "%f", &b[i], sizeof(float)) != 1) {
+        if (fscanf_s(file, "%f", &b[i]) != 1) {
             perror("Error reading floating-point number for array b");
             fclose(file);
             free(a);
