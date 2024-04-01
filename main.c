@@ -12,7 +12,7 @@
 extern float dot_product_asm(float* a, float* b, size_t n);
 
 int main() {
-    size_t n = pow(2, 30);
+    size_t n = pow(2, 30); // Change this to test different vector sizes
     float* a, * b;
     float sdot;
 
@@ -31,21 +31,45 @@ int main() {
         b[i] = (float)((double)rand() / RAND_MAX * 200.0 - 100.0); // Cast the result to float
     }
 
-    // Call C kernel
-    clock_t start_c = clock();
-    sdot = dot_product_c(a, b, n);
-    clock_t end_c = clock();
-    double time_spent_c = (double)(end_c - start_c) / CLOCKS_PER_SEC;
-    printf("C Dot product: %f, Time: %f seconds\n", sdot, time_spent_c);
+    /*
+    // Display Vectors (proof of correctnness)
+    printf("Vector size: %zu\n", n);
+    printf("Vector A: \n");
+    for (size_t i = 0; i < n; i++) {
+        printf("%f, ", a[i]);
+    }
+    printf("\nVector B: \n");
+    for (size_t i = 0; i < n; i++) {
+        printf("%f, ", b[i]);
+    }
+    printf("\n");
+    */
+    
+    double ave_time_spent_c=0, ave_time_spent_asm = 0;
+
+    for (int i = 0; i < 30; i++) {
+        // Call C kernel
+        clock_t start_c = clock();
+        sdot = dot_product_c(a, b, n);
+        clock_t end_c = clock();
+        double time_spent_c = (double)(end_c - start_c) / CLOCKS_PER_SEC;
+        ave_time_spent_c += time_spent_c;
+    }
+    ave_time_spent_c /= 30;
+    printf("C Dot product: %f, Average Time: %f seconds\n", sdot, ave_time_spent_c);
 
     sdot = 0;
 
-    // Call ASM kernel
-    clock_t start_asm = clock();
-    sdot = dot_product_asm(a, b, n);
-    clock_t end_asm = clock();
-    double time_spent_asm = (double)(end_asm - start_asm) / CLOCKS_PER_SEC;
-    printf("ASM Dot product: %f, Time: %f seconds\n", sdot, time_spent_asm);
+    for (int i = 0; i < 30; i++) {
+        // Call ASM kernel
+        clock_t start_asm = clock();
+        sdot = dot_product_asm(a, b, n);
+        clock_t end_asm = clock();
+        double time_spent_asm = (double)(end_asm - start_asm) / CLOCKS_PER_SEC;
+        ave_time_spent_asm += time_spent_asm;
+    }
+    ave_time_spent_asm /= 30;
+    printf("ASM Dot product: %f, Average Time: %f seconds\n", sdot, ave_time_spent_asm);
 
     // Free allocated memory
     free(a);
