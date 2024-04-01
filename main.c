@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 // Include the C kernel
 #include "c_dp.c" 
@@ -11,55 +12,24 @@
 extern float dot_product_asm(float* a, float* b, size_t n);
 
 int main() {
-    FILE* file;
-    size_t n;
+    size_t n = pow(2, 30);
     float* a, * b;
     float sdot;
-
-    // Open the file for reading
-    if (fopen_s(&file, "input.txt", "r") != 0) {
-        perror("Error opening file");
-        return -1;
-    }
-
-    // Read vector size from file
-    if (fscanf_s(file, "%zu", &n) != 1) {
-        perror("Error reading vector size");
-        fclose(file);
-        return -1;
-    }
 
     // Allocate memory for vectors a and b
     a = (float*)malloc(n * sizeof(float));
     b = (float*)malloc(n * sizeof(float));
     if (a == NULL || b == NULL) {
         perror("Memory allocation failed");
-        fclose(file);
         return -1;
     }
 
-    // Read floating-point numbers from file
+    // Generate random floats and store in arrays a and b
+    srand((unsigned int)time(NULL)); // Seed the random number generator
     for (size_t i = 0; i < n; i++) {
-        if (fscanf_s(file, "%f", &a[i]) != 1) {
-            perror("Error reading floating-point number for array a");
-            fclose(file);
-            free(a);
-            free(b);
-            return -1;
-        }
+        a[i] = (float)((double)rand() / RAND_MAX * 200.0 - 100.0); // Cast the result to float
+        b[i] = (float)((double)rand() / RAND_MAX * 200.0 - 100.0); // Cast the result to float
     }
-    for (size_t i = 0; i < n; i++) {
-        if (fscanf_s(file, "%f", &b[i]) != 1) {
-            perror("Error reading floating-point number for array b");
-            fclose(file);
-            free(a);
-            free(b);
-            return -1;
-        }
-    }
-
-    // Close the file
-    fclose(file);
 
     // Call C kernel
     clock_t start_c = clock();
