@@ -18,13 +18,16 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="c_dp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="sample.asm">
+    <CustomBuild Include="asm_dp.asm">
       <Filter>Source Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="asmfunc.asm">
-      <Filter>Source Files</Filter>
-    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input.txt" />
   </ItemGroup>
 </Project>

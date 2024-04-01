@@ -1,95 +1,83 @@
+// Gene Cedric D. Alejo and Nicole Kate T. Uy - S12
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
+#include <time.h>
 
-extern void asmhello();
+// Include the C kernel
+#include "c_dp.c" 
 
-extern int summ(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
-
-//ACTUAL PROJECT
-extern float get_input();
-
-void c_dot_product();
+// Declare the ASM kernel
+extern float dot_product_asm(float* a, float* b, size_t n);
 
 int main() {
+    FILE* file;
+    size_t n;
+    float* a, * b;
+    float sdot;
 
-	//asmhello();
-	/*
-	int a1, a2, a3, a4, a5, a6, a7, x;
-	a1 = 1;
-	a2 = 2;
-	a3 = 3;
-	a4 = 4;
-	a5 = 5;
-	a6 = 6;
-	a7 = 100;
-	x = summ(a1, a2, a3, a4, a5, a6, a7);
-	printf("%d + %d + %d + %d + %d + %d + %d = %d \n", a1, a2, a3, a4, a5, a6, a7, x);*/
+    // Open the file for reading
+    if (fopen_s(&file, "input.txt", "r") != 0) {
+        perror("Error opening file");
+        return -1;
+    }
 
-	//ACTUAL PROJECT
-	//get_input();
-	c_dot_product();
+    // Read vector size from file
+    if (fscanf_s(file, "%zu", &n) != 1) {
+        perror("Error reading vector size");
+        fclose(file);
+        return -1;
+    }
 
+    // Allocate memory for vectors a and b
+    a = (float*)malloc(n * sizeof(float));
+    b = (float*)malloc(n * sizeof(float));
+    if (a == NULL || b == NULL) {
+        perror("Memory allocation failed");
+        fclose(file);
+        return -1;
+    }
+    // Read floating-point numbers from file
+    for (size_t i = 0; i < n; i++) {
+        if (fscanf_s(file, "%f", &a[i], sizeof(float)) != 1) {
+            perror("Error reading floating-point number for array a");
+            fclose(file);
+            free(a);
+            free(b);
+            return -1;
+        }
+    }
+    for (size_t i = 0; i < n; i++) {
+        if (fscanf_s(file, "%f", &b[i], sizeof(float)) != 1) {
+            perror("Error reading floating-point number for array b");
+            fclose(file);
+            free(a);
+            free(b);
+            return -1;
+        }
+    }
 
-	return 0;
-}
+    // Close the file
+    fclose(file);
 
-void c_dot_product() {
-	int i, n;
-	char dump;
-	//float A[20]; //i put 10 for now, dont remember how to declare if dk the thing yet
-	//float B[20];
-	float temp, sum=0;
-	float* a = malloc(10 * sizeof(float));
-	float* b = malloc(10 * sizeof(float));
+    // Call C kernel
+    clock_t start_c = clock();
+    sdot = dot_product_c(a, b, n);
+    clock_t end_c = clock();
+    double time_spent_c = (double)(end_c - start_c) / CLOCKS_PER_SEC;
+    printf("C Dot product: %f, Time: %f seconds\n", sdot, time_spent_c);
 
-	if (a == NULL || b == NULL) {
-		printf("error! malloc didnt work");
-		return;
-	}
+    sdot = 0;
 
-	printf("THIS IS FOR CALCULATING USING C\n");
+    // Call ASM kernel
+    clock_t start_asm = clock();
+    sdot = dot_product_asm(a, b, n);
+    clock_t end_asm = clock();
+    double time_spent_asm = (double)(end_asm - start_asm) / CLOCKS_PER_SEC;
+    printf("ASM Dot product: %f, Time: %f seconds\n", sdot, time_spent_asm);
 
-	//GETTING INPUT
-	printf("Enter scalar variable n: ");
-	scanf_s("%d", &n);
-
-	a = realloc(a, n * sizeof(float));
-	b = realloc(b, n * sizeof(float));
-
-	if (a == NULL || b == NULL) {
-		printf("error! realloc didnt work");
-		return;
-	}
-
-	printf("Enter values of vector A (single precision): ");
-	for (i = 0; i < n; i++) {
-		//scanf_s("%f", &A[i]);
-		scanf_s("%f", &a[i]);
-		scanf_s("%c", &dump, 1);
-	}
-	printf("Enter values of vector B (single precision): ");
-	for (i = 0; i < n; i++) {
-		//scanf_s("%f", &B[i]);
-		scanf_s("%f", &b[i]);
-		scanf_s("%c", &dump, 1);
-	}
-	printf("These are the values for A: \n");
-	for (i = 0; i < n; i++) {
-		//printf("%.2f \n", A[i]);
-		printf("%.2f \n", a[i]);
-	}
-	printf("These are the values for B: \n");
-	for (i = 0; i < n; i++) {
-		//printf("%.2f \n", B[i]);
-		printf("%.2f \n", b[i]);
-	}
-
-	for (i = 0; i < n; i++) {
-		//temp = A[i] * B[i];
-		temp = a[i] * b[i];
-		sum += temp;
-		printf("%d: %.2f  ", i, temp);
-	}
-	printf("\nDot product: %.2f", sum);
+    // Free allocated memory
+    free(a);
+    free(b);
+    return 0;
 }
