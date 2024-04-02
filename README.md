@@ -70,6 +70,8 @@ Overall, the assembly kernel generally performed better, but the C compiler coul
 
 ## PROOFS OF CORRECTNESS
 
+### Note: Using the C kernel as a check, the ASM kernel does the correct expected operations and gets the same value. However, checking both kernels with calculators online show that there may be discrepancies that are affected by the way rounding occurs in the program.
+
 #### Proof 1
 ![Test 1](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test1.png)
 
