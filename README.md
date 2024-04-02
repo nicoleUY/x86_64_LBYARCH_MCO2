@@ -13,7 +13,7 @@
 | GPU              | Intel(R) UHD Graphics                 | Intel(R) Iris(R) Xe Graphics & NVIDIA GeForce MX330 |
 | RAM              | 16.0 GB                               | 16.0 GB                                        |
 | Cores            | 6                                     | 4                                              |
-| Clock Speed      | 1608 Mhz                              | 2.80 GHz                                       |
+| Clock Speed      | 1.10 GHz                              | 2.80 GHz                                       |
 
 
 ### DEBUG
