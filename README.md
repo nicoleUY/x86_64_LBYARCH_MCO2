@@ -1,21 +1,5 @@
 # x86_64_LBYARCH_MCO2
 
-## PROOFS OF CORRECTNESS
-
-#### Proof 1
-![Test 1](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test1.png)
-
-#### Proof 2
-![Test 2](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test2.png)
-
-#### Proof 3
-![Test 3](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test3.png)
-
-#### Proof 4
-![Test 4](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test4.png)
-
-
-
 ## COMPARATIVE EXECUTION TIME
 
 ### LAPTOP SPECS
@@ -65,3 +49,19 @@
 - As expected, as the vector size increases, the run time also increases
 - In Table 2, it can be seen that performance of the kernels are nearer in value. 
 - However, in Table 2, when the size of the vector reaches 2^30, the difference is more drastic
+
+## PROOFS OF CORRECTNESS
+
+#### Proof 1
+![Test 1](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test1.png)
+
+#### Proof 2
+![Test 2](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test2.png)
+
+#### Proof 3
+![Test 3](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test3.png)
+
+#### Proof 4
+![Test 4](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test4.png)
+
+
