@@ -1,6 +1,14 @@
 # x86_64_LBYARCH_MCO2
 
-## PROOF OF CORRECTNESS
+## PROOFS OF CORRECTNESS
+
+![Test 1](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test1.png)
+
+![Test 2](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test2.png)
+
+![Test 3](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test3.png)
+
+![Test 4](https://github.com/nicoleUY/x86_64_LBYARCH_MCO2/blob/master/images/lbyarch%20test4.png)
 
 
 ## COMPARATIVE EXECUTION TIME
