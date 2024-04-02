@@ -45,10 +45,28 @@
 
 ## SHORT ANALYSIS OF PERFORMANCE OF KERNELS
 
-- In Table 1, it can be seen that the asm kernel consistently performs much faster than the c kernel. 
-- As expected, as the vector size increases, the run time also increases
-- In Table 2, it can be seen that performance of the kernels are nearer in value. 
-- However, in Table 2, when the size of the vector reaches 2^30, the difference is more drastic
+The provided results show performance differences between C and assembly language kernels, and between debug and release modes.
+
+Impact of Debug vs Release Mode:
+
+Running the code in debug mode consistently resulted in slower execution times compared to release mode. This is because debuggers prioritize generating code that's easy to understand and troubleshoot, even if it means sacrificing some efficiency. Debuggers might also insert extra checks to verify memory access and variable values, adding to the execution time. In contrast, release mode leverages compiler optimizations to generate more efficient machine code, often using fewer instructions and taking advantage of processor features. This explains the noticeable performance improvement for both C and assembly kernels in release mode across both devices.
+
+Assembly vs C Language Performance:
+
+Assembly language offered fine-grained control, allowing for direct manipulation of registers and instructions. This can lead to highly optimized code for specific tasks like the dot product calculation in this case. However, assembly code comes at the cost of being less portable (tied to a specific processor architecture, in this case x86_64 for Windows) and harder to write and maintain compared to C.
+
+The results confirmed these expectations. Initially, the assembly kernel consistently outperformed the C kernel, suggesting the assembly code effectively leveraged processor instructions for the dot product operation. However, later in release mode, the gap between C and assembly narrowed significantly. For smaller vector sizes, the C kernel even performed slightly better. 
+
+This could be due to several factors:
+
+    Compiler Optimizations: Using release mode optimized the efficiency of the C code, allowing it to be more efficient that ASM at times.
+    Measurement Overhead: Timing measurements can introduce slight variations, especially for very short execution times on small vector sizes.
+
+Additional Considerations:
+
+The execution time increased for both C and assembly kernels as the vector size grew. This is simply because more iterations are needed to calculate the dot product for larger vectors. Additionally, hardware differences between the devices, such as processor models (i7-10710U vs i7-1165G7), clock speeds, and number of cores, can also contribute to performance variations. While not provided in the data, the number of cores could significantly impact performance, especially for larger vector sizes that could benefit from parallelization.
+
+Overall, the assembly kernel generally performed better, but the C compiler could be surprisingly competitive on certain hardware configurations, especially with optimizations in release mode. 
 
 ## PROOFS OF CORRECTNESS
 
