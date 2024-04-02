@@ -30,20 +30,6 @@ int main() {
         a[i] = (float)((double)rand() / RAND_MAX * 200.0 - 100.0); // Cast the result to float
         b[i] = (float)((double)rand() / RAND_MAX * 200.0 - 100.0); // Cast the result to float
     }
-
-    /*
-    // Display Vectors (proof of correctnness)
-    printf("Vector size: %zu\n", n);
-    printf("Vector A: \n");
-    for (size_t i = 0; i < n; i++) {
-        printf("%f, ", a[i]);
-    }
-    printf("\nVector B: \n");
-    for (size_t i = 0; i < n; i++) {
-        printf("%f, ", b[i]);
-    }
-    printf("\n");
-    */
     
     double ave_time_spent_c=0, ave_time_spent_asm = 0;
 
