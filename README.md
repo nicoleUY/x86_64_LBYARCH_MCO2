@@ -9,7 +9,7 @@
 
 | Component        | Laptop #1                             | Laptop #2                                      |
 |------------------|---------------------------------------|------------------------------------------------|
-| CPU              | Intel(R) Core(TM) i7-10710U @1.10GHz | 11th Gen Intel(R) Core(TM) i7-1165G7 @2.80GHz |
+| CPU              | Intel(R) Core(TM) i7-10710U @1.10GHz  | Intel(R) Core(TM) i7-1165G7 @2.80GHz           |
 | GPU              | Intel(R) UHD Graphics                 | Intel(R) Iris(R) Xe Graphics & NVIDIA GeForce MX330 |
 | RAM              | 16.0 GB                               | 16.0 GB                                        |
 | Cores            | 6                                     | 4                                              |
